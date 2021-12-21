@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'nullstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    {% block link %}{% endblock %}
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header__logo">{{ logo }}</div>
+            <ul>
+                {% for item in menu %}
+                    <li class="header__menu_link"><a href="{% url 'home' %}" class="header__menu_link-for">{{ item }}</a></li>
+                {% endfor %}
+                {% if request.user.is_authenticated %}
+                    <li class="header__menu_link header__menu_link-reg-or-log">
+                        <p style="display:inline-block; margin-right: 1rem; color: var(--orange-color); font-weight: 600;">{{ user.username }}</p>
+                         | 
+                        <a href="{% url 'logout' %}" class="login">Выйти</a>
+                        </li>
+                {% else %}
+                    <li class="header__menu_link header__menu_link-reg-or-log">
+                        <a href="{% url 'register' %}" class="register">Регистрация</a>
+                         | 
+                        <a href="{% url 'login' %}" class="login">Войти</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</body>
+</html>

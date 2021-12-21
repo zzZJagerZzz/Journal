@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href=" {% static 'table.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="table__container">
+    <table>
+        <caption>Таблица успеваемости студентов</caption>
+        <tr class="table_title">
+            <th rowspan="2" class="right-border">N</th>
+            <th class="right-border" colspan="2">Студент</th>
+            <th colspan="8">Дисциплина</th>
+        </tr>
+        <tr class="table__subtitle">
+            <th class="right-border">Имя</th>
+            <th class="right-border">Фамилия</th>
+            <th class="right-border">Математический анализ</th>
+            <th class="right-border">Информатика</th>
+            <th class="right-border">Деловой русский язык</th>
+            <th class="right-border">Физическая культура и спорт</th>
+            <th class="right-border">Языки программирования</th>
+            <th class="right-border">Иностранный язык</th>
+            <th class="right-border">Основы информационной безопасности</th>
+            <th>Линейная алгебра</th>
+        </tr>
+        {% for item in student %}
+            <tr class="table__inner">
+                <td>{{ item.pk }}</td>
+                <td>{{ item.student_name }}</td>
+                <td>{{ item.student_lastname }}</td>
+                <td class="estimate">{{ item.status.status_matanaliz }}</td>
+                <td class="estimate">{{ item.status.status_informatics }}</td>
+                <td class="estimate">{{ item.status.status_russian }}</td>
+                <td class="estimate">{{ item.status.status_gymnastic }}</td>
+                <td class="estimate">{{ item.status.status_yap }}</td>
+                <td class="estimate">{{ item.status.status_inyaz }}</td>
+                <td class="estimate">{{ item.status.status_oib }}</td>
+                <td class="estimate">{{ item.status.status_linal }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

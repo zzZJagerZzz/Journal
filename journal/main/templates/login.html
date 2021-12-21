@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form__container">
+    <h1 class="form-title">{{ title }}</h1>
+
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <div class="input__container">
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            {% for f in form %}
+                <div class="input__container_inner">
+                    <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label><span>{{ f }}</span>
+                    <div class="form-error">{{ f.errors }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="post-button">Войти</button>
+    </form>
+</div>
+{% endblock %}
